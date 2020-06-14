@@ -15,34 +15,36 @@ def to_usd(my_price):
 while True:
 	year = input("Please enter the year of the sales data you wish to view (YYYY): ")
 	month = input("Please enter the month of the sales data you wish to view (MM): ")
-	filename = "sales-"+year+month+".csv"
-	filePath = "Data/"+filename
-
-	if not os.path.isfile(filePath):
+	csv_file_name = "sales-"+year+month+".csv"
+	csv_file_path = os.path.join("data/",csv_file_name)
+    
+	if not os.path.isfile(csv_file_path):
 		print("Sorry, that file does not exist. Please make sure that you have added that .csv file in the 'Data' Subfolder.")
 	else:
 		break
 
 #
+#CALCULATIONS
 #
-#
-print("-----------------------")
-print("MONTH: March 2018")
 
-print("-----------------------")
-print("CRUNCHING THE DATA...")
 
-print("-----------------------")
-print("TOTAL MONTHLY SALES: $12,000.71")
+#print("-----------------------")
+#print("MONTH: March 2018")
 
-print("-----------------------")
-print("TOP SELLING PRODUCTS:")
-print("  1) Button-Down Shirt: $6,960.35")
-print("  2) Super Soft Hoodie: $1,875.00")
-print("  3) etc.")
+#print("-----------------------")
+#print("CRUNCHING THE DATA...")
 
-print("-----------------------")
-print("VISUALIZING THE DATA...")
+#print("-----------------------")
+#print("TOTAL MONTHLY SALES: $12,000.71")
+
+#print("-----------------------")
+#print("TOP SELLING PRODUCTS:")
+#print("  1) Button-Down Shirt: $6,960.35")
+#print("  2) Super Soft Hoodie: $1,875.00")
+#print("  3) etc.")
+
+#print("-----------------------")
+#print("VISUALIZING THE DATA...")
 
 # Generate Bar Chart for data from Chart Gallery Exercise
 #genre = [x["genre"] for x in bar_data]
