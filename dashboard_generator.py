@@ -15,7 +15,7 @@ def to_usd(my_price):
 while True:
 	year = input("Please enter the year of the sales data you wish to view (YYYY): ")
 	month = input("Please enter the month of the sales data you wish to view (MM): ")
-	csv_file_name = "sales-"+year+month+".csv"
+	csv_file_name = "sales-"+year+month+".csv" #data files should be named: (sales-YYYYMM.csv)
 	csv_file_path = os.path.join("data/",csv_file_name)
     
 	if not os.path.isfile(csv_file_path):
@@ -26,7 +26,11 @@ while True:
 #
 #CALCULATIONS
 #
-
+csv_data = pd.read_csv(csv_file_path) #read the file
+monthly_total = csv_data["sales price"].sum() #sum the monthly total
+monthly_total = to_usd(monthly_total)
+#print(monthly_total) #prints $12,000.71
+#print(type(monthly_total)) #string - remember for output statement
 
 #print("-----------------------")
 #print("MONTH: March 2018")
