@@ -55,10 +55,13 @@ df = df.sort_values(by=["Sum of Sales Price"], ascending = False)
 #
 
 #TO DO: figure out how to change 03 to March; Utilize user input in some way since they put in month and year?
+#got help from: https://www.pythonprogramming.in/how-can-i-get-the-month-name-from-the-month-number.html
 #month_num = month
 month_num = int(month) #convert month from line 19 into integer to run line 60
 month_name = datetime.date(2015, month_num, 1).strftime('%B')
 #print("MONTH:", month_name, year) 
+#print(type(month_name)):string
+#print(type(year)):string
 
 #print("-----------------------")
 #print("MONTH:", month_name, year) #"MONTH: March 2018"
@@ -76,11 +79,40 @@ month_name = datetime.date(2015, month_num, 1).strftime('%B')
 
 #print("-----------------------")
 #print("VISUALIZING THE DATA...")
+#lines 83-109 came from Professor's starter code which I just found when looking for resources for the chart:https://github.com/prof-rossetti/intro-to-python/blob/master/projects/exec-dash/pandas_matplotlib_solution.py
+#the realization in line 82 would have been help 8 hours ago :(
+product_names = csv_data["product"]
+unique_product_names = product_names.unique()  # :-D
+unique_product_names = unique_product_names.tolist()
 
-# Generate Bar Chart for data from Chart Gallery Exercise
-#plt.barh(y_pos, views, align='center')
-#plt.yticks(y_pos, genre)
-#plt.xlabel("Product")
-#plt.title("Monthly Sales (USD)")
-#plt.gcf().axes[0].xaxis.get_major_formatter().set_scientific(False)
-#plt.show()
+# Accumulate total sales per product
+
+top_sellers = []
+
+for product_name in unique_product_names:
+    matching_rows = csv_data[csv_data["product"] == product_name]
+    product_monthly_sales = matching_rows["sales price"].sum()
+    top_sellers.append(
+        {"name": product_name, "monthly_sales": product_monthly_sales})
+
+
+top_sellers = sorted(top_sellers, key=operator.itemgetter(
+    "monthly_sales"), reverse=True)
+
+#chart_title = "Top Selling Products (" + month_name + year +")""   # TODO: get month and year
+
+
+sorted_products = []
+sorted_sales = []
+
+for d in top_sellers:
+    sorted_products.append(d["name"])
+    sorted_sales.append(d["monthly_sales"])
+
+plt.barh(sorted_products, sorted_sales)
+plt.title(f"Top Selling Products ({month_name} {year})")
+#plt.title(chart_title)
+plt.xlabel("Monthly Sales (USD)")
+plt.ylabel("Product")
+plt.show() #show chart window
+
