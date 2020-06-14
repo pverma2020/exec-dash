@@ -36,7 +36,12 @@ monthly_total = to_usd(monthly_total)
 
 #Top Selling Products
 #need to remove duplicates but keep price - find a way to group and sort: (.groupby()/.sort_values)
+#column options: "date","product","unit price","units sold","sales price"
 
+df = pd.DataFrame(csv_data)
+df = df.groupby(["product"]).sum() #group by product
+df = df.sort_values(by=["sales price"], ascending = False)
+print(df)
 #
 #OUTPUTS
 #
@@ -61,9 +66,6 @@ monthly_total = to_usd(monthly_total)
 #print("VISUALIZING THE DATA...")
 
 # Generate Bar Chart for data from Chart Gallery Exercise
-#genre = [x["genre"] for x in bar_data]
-#y_pos = np.arange(len(genre))
-#views = [y["viewers"] for y in bar_data]
 #plt.barh(y_pos, views, align='center')
 #plt.yticks(y_pos, genre)
 #plt.xlabel("Product")
