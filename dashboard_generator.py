@@ -41,6 +41,7 @@ monthly_total = to_usd(monthly_total)
 #OUTPUTS
 #
 
+#TO DO: figure out how to change 03 to March; Utilize user input in some way since they put in month and year?
 #print("-----------------------")
 #print("MONTH: March 2018")
 
@@ -48,7 +49,7 @@ monthly_total = to_usd(monthly_total)
 #print("CRUNCHING THE DATA...")
 
 #print("-----------------------")
-#print("TOTAL MONTHLY SALES: $12,000.71")
+#print("TOTAL MONTHLY SALES: " + monthly_total)
 
 #print("-----------------------")
 #print("TOP SELLING PRODUCTS:")
