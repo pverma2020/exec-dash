@@ -1,4 +1,5 @@
 # dashboard_generator.py
+import csv
 import operator
 import os
 import pandas as pd
@@ -7,6 +8,24 @@ import matplotlib.pyplot as plt
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)  # > $12,000.71
 
+#
+#INPUT - PICK YOUR FILE & ERROR MESSAGE IF FILE DOESN'T EXIST
+#
+
+while True:
+	year = input("Please enter the year of the sales data you wish to view (YYYY): ")
+	month = input("Please enter the month of the sales data you wish to view (MM): ")
+	filename = "sales-"+year+month+".csv"
+	filePath = "Data/"+filename
+
+	if not os.path.isfile(filePath):
+		print("Sorry, that file does not exist. Please make sure that you have added that .csv file in the 'Data' Subfolder.")
+	else:
+		break
+
+#
+#
+#
 print("-----------------------")
 print("MONTH: March 2018")
 
@@ -26,12 +45,12 @@ print("-----------------------")
 print("VISUALIZING THE DATA...")
 
 # Generate Bar Chart for data from Chart Gallery Exercise
-genre = [x["genre"] for x in bar_data]
-y_pos = np.arange(len(genre))
-views = [y["viewers"] for y in bar_data]
-plt.barh(y_pos, views, align='center')
-plt.yticks(y_pos, genre)
-plt.xlabel("Product")
-plt.title("Monthly Sales (USD)")
-plt.gcf().axes[0].xaxis.get_major_formatter().set_scientific(False)
-plt.show()
+#genre = [x["genre"] for x in bar_data]
+#y_pos = np.arange(len(genre))
+#views = [y["viewers"] for y in bar_data]
+#plt.barh(y_pos, views, align='center')
+#plt.yticks(y_pos, genre)
+#plt.xlabel("Product")
+#plt.title("Monthly Sales (USD)")
+#plt.gcf().axes[0].xaxis.get_major_formatter().set_scientific(False)
+#plt.show()
