@@ -55,8 +55,13 @@ df = df.sort_values(by=["Sum of Sales Price"], ascending = False)
 #
 
 #TO DO: figure out how to change 03 to March; Utilize user input in some way since they put in month and year?
+#month_num = month
+month_num = int(month)
+month_name = datetime.date(2015, month_num, 1).strftime('%B')
+#print("MONTH:", month_name, year)
+
 #print("-----------------------")
-#print("MONTH: March 2018")
+#print("MONTH:", month_name, year) #"MONTH: March 2018"
 
 #print("-----------------------")
 #print("CRUNCHING THE DATA...")
