@@ -109,6 +109,9 @@ for d in top_sellers:
     sorted_products.append(d["name"])
     sorted_sales.append(d["monthly_sales"])
 
+sorted_products.reverse()
+sorted_sales.reverse()
+
 plt.barh(sorted_products, sorted_sales)
 plt.title(f"Top Selling Products ({month_name} {year})")
 #plt.title(chart_title)
