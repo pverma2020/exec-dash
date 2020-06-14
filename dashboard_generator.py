@@ -6,6 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import calendar
 import datetime
+import numpy as np
+import matplotlib.ticker as ticker
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)  # > $12,000.71
@@ -63,24 +65,24 @@ month_name = datetime.date(2015, month_num, 1).strftime('%B')
 #print(type(month_name)):string
 #print(type(year)):string
 
-#print("-----------------------")
-#print("MONTH:", month_name, year) #"MONTH: March 2018"
+print("-----------------------")
+print("MONTH:", month_name, year) #"MONTH: March 2018"
 
-#print("-----------------------")
-#print("CRUNCHING THE DATA...")
+print("-----------------------")
+print("CRUNCHING THE DATA...")
 
-#print("-----------------------")
-#print("TOTAL MONTHLY SALES: " + monthly_total)
+print("-----------------------")
+print("TOTAL MONTHLY SALES: " + monthly_total)
 
-#print("-----------------------")
-#print("TOP SELLING PRODUCTS:")
-#print(df)
+print("-----------------------")
+print("TOP SELLING PRODUCTS:")
+print(df)
 
 
-#print("-----------------------")
-#print("VISUALIZING THE DATA...")
+print("-----------------------")
+print("VISUALIZING THE DATA...")
 #lines 83-109 came from Professor's starter code which I just found when looking for resources for the chart:https://github.com/prof-rossetti/intro-to-python/blob/master/projects/exec-dash/pandas_matplotlib_solution.py
-#the realization in line 82 would have been help 8 hours ago :(
+#the realization in line 82 would have been helpful 8 hours ago :(
 product_names = csv_data["product"]
 unique_product_names = product_names.unique()  # :-D
 unique_product_names = unique_product_names.tolist()
@@ -99,9 +101,6 @@ for product_name in unique_product_names:
 top_sellers = sorted(top_sellers, key=operator.itemgetter(
     "monthly_sales"), reverse=True)
 
-#chart_title = "Top Selling Products (" + month_name + year +")""   # TODO: get month and year
-
-
 sorted_products = []
 sorted_sales = []
 
@@ -112,9 +111,19 @@ for d in top_sellers:
 sorted_products.reverse()
 sorted_sales.reverse()
 
+#Lines 116 - 118 manipulated from https://matplotlib.org/3.1.1/gallery/pyplots/dollar_ticks.html
+#formats x axis to usd values with 2 decimal points
+fig, ax = plt.subplots()
+formatter = ticker.FormatStrFormatter('$%1.2f')
+ax.xaxis.set_major_formatter(formatter)
+
 plt.barh(sorted_products, sorted_sales)
+
+for index, value in enumerate(sorted_sales):
+    bar_label = to_usd(value)
+    plt.text(value, index, bar_label)
+
 plt.title(f"Top Selling Products ({month_name} {year})")
-#plt.title(chart_title)
 plt.xlabel("Monthly Sales (USD)")
 plt.ylabel("Product")
 plt.show() #show chart window
