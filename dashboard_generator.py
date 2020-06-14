@@ -26,11 +26,20 @@ while True:
 #
 #CALCULATIONS
 #
+
+#Monthly Total
 csv_data = pd.read_csv(csv_file_path) #read the file
 monthly_total = csv_data["sales price"].sum() #sum the monthly total
 monthly_total = to_usd(monthly_total)
 #print(monthly_total) #prints $12,000.71
 #print(type(monthly_total)) #string - remember for output statement
+
+#Top Selling Products
+#need to remove duplicates but keep price - find a way to group and sort
+
+#
+#OUTPUTS
+#
 
 #print("-----------------------")
 #print("MONTH: March 2018")
