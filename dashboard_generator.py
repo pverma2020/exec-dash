@@ -35,7 +35,7 @@ monthly_total = to_usd(monthly_total)
 #print(type(monthly_total)) #string - remember for output statement
 
 #Top Selling Products
-#need to remove duplicates but keep price - find a way to group and sort
+#need to remove duplicates but keep price - find a way to group and sort: (.groupby()/.sort_values)
 
 #
 #OUTPUTS
