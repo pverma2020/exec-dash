@@ -4,6 +4,8 @@ import operator
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import calendar
+import datetime
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)  # > $12,000.71
@@ -37,11 +39,17 @@ monthly_total = to_usd(monthly_total)
 #Top Selling Products
 #need to remove duplicates but keep price - find a way to group and sort: (.groupby()/.sort_values)
 #column options: "date","product","unit price","units sold","sales price"
-
+#Project description only wants to show "Product" and "Sum of Sales Price"
 df = pd.DataFrame(csv_data)
-df = df.groupby(["product"]).sum() #group by product
-df = df.sort_values(by=["sales price"], ascending = False)
-print(df)
+df.rename(columns = {"product":"Product"}, inplace = True) #Column Header: "Product"
+df.rename(columns = {"sales price":"Sum of Sales Price"}, inplace = True) #Column Header: "Sum of Sales Price"
+
+df = df.groupby(["Product"]).sum() #group by product
+df = df[["Sum of Sales Price"]]
+df = df.sort_values(by=["Sum of Sales Price"], ascending = False)
+#print(df) #prints 2 columns: Product and Sum of Sales Price
+
+
 #
 #OUTPUTS
 #
@@ -58,9 +66,8 @@ print(df)
 
 #print("-----------------------")
 #print("TOP SELLING PRODUCTS:")
-#print("  1) Button-Down Shirt: $6,960.35")
-#print("  2) Super Soft Hoodie: $1,875.00")
-#print("  3) etc.")
+#print(df)
+
 
 #print("-----------------------")
 #print("VISUALIZING THE DATA...")
