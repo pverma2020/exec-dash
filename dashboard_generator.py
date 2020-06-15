@@ -49,7 +49,23 @@ df.rename(columns = {"sales price":"Sum of Sales Price"}, inplace = True) #Colum
 df = df.groupby(["Product"]).sum() #group by product
 df = df[["Sum of Sales Price"]]
 df = df.sort_values(by=["Sum of Sales Price"], ascending = False)
-#print(df) #prints 2 columns: Product and Sum of Sales Price
+df = df.round(2)
+
+#lines 56 - 69 came from Professor's starter code which I just found when looking for resources for the chart:https://github.com/prof-rossetti/intro-to-python/blob/master/projects/exec-dash/pandas_matplotlib_solution.py
+product_names = csv_data["product"]
+unique_product_names = product_names.unique()  
+unique_product_names = unique_product_names.tolist()
+top_sellers = []
+
+for product_name in unique_product_names:
+    matching_rows = csv_data[csv_data["product"] == product_name]
+    product_monthly_sales = matching_rows["sales price"].sum()
+    top_sellers.append(
+        {"name": product_name, "monthly_sales": product_monthly_sales})
+
+
+top_sellers = sorted(top_sellers, key=operator.itemgetter(
+    "monthly_sales"), reverse=True)
 
 
 #
@@ -76,30 +92,17 @@ print("TOTAL MONTHLY SALES: " + monthly_total)
 
 print("-----------------------")
 print("TOP SELLING PRODUCTS:")
-print(df)
+#ranks top selling products, adds in missing $ that wasn't showing
+rank = 1
+for d in top_sellers:
+    print("  " + str(rank)+ ") " + d["name"]+ ": " + to_usd(d["monthly_sales"]))
+    rank = rank + 1
 
 
 print("-----------------------")
 print("VISUALIZING THE DATA...")
-#lines 83-109 came from Professor's starter code which I just found when looking for resources for the chart:https://github.com/prof-rossetti/intro-to-python/blob/master/projects/exec-dash/pandas_matplotlib_solution.py
-#the realization in line 82 would have been helpful 8 hours ago :(
-product_names = csv_data["product"]
-unique_product_names = product_names.unique()  # :-D
-unique_product_names = unique_product_names.tolist()
-
-# Accumulate total sales per product
-
-top_sellers = []
-
-for product_name in unique_product_names:
-    matching_rows = csv_data[csv_data["product"] == product_name]
-    product_monthly_sales = matching_rows["sales price"].sum()
-    top_sellers.append(
-        {"name": product_name, "monthly_sales": product_monthly_sales})
-
-
-top_sellers = sorted(top_sellers, key=operator.itemgetter(
-    "monthly_sales"), reverse=True)
+#lines 108 - 116 came from Professor's starter code which I just found when looking for resources for the chart:https://github.com/prof-rossetti/intro-to-python/blob/master/projects/exec-dash/pandas_matplotlib_solution.py
+#the realization in line above would have been helpful 8 hours ago :(
 
 sorted_products = []
 sorted_sales = []
@@ -111,7 +114,7 @@ for d in top_sellers:
 sorted_products.reverse()
 sorted_sales.reverse()
 
-#Lines 116 - 118 manipulated from https://matplotlib.org/3.1.1/gallery/pyplots/dollar_ticks.html
+#Lines below manipulated from https://matplotlib.org/3.1.1/gallery/pyplots/dollar_ticks.html
 #formats x axis to usd values with 2 decimal points
 fig, ax = plt.subplots()
 formatter = ticker.FormatStrFormatter('$%1.2f')
